@@ -10,4 +10,3 @@ Simple web-based education program recommendation system.
 ## Setup
 1. Clone repository
 2. Open index.html in browser
-=======
