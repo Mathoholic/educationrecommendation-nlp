@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Search Results</title>
+    <style>
+        .results-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .program-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            flex: 1 1 calc(33.333% - 20px); /* Adjust the percentage to control the number of cards per row */
+            box-sizing: border-box;
+        }
+        .similarity {
+            color: green;
+            font-weight: bold;
+        }
+        .back-button {
+            float: right;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-button">New Search</a>
+        <h1>Search Results for: {{ query }}</h1>
+        
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if results %}
+            <div class="results-container">
+                {% for item in results %}
+                    <div class="program-card">
+                        <h2>{{ item.program_name }}</h2>
+                        <p><strong>Institution:</strong> {{ item.institution_name }}</p>
+                        <p><strong>Location:</strong> {{ item.campus_location }}</p>
+                        <p><strong>Program Level:</strong> {{ item.program_level }}</p>
+                        <p><strong>Discipline:</strong> {{ item.discipline }}</p>
+                        <p><strong>Tuition:</strong> {{ item.tuition_fees }} {{ item.currency }}</p>
+                        <p><strong>Length:</strong> {{ item.program_length }} year(s)</p>
+                        <p><strong>Match:</strong> {{ "%.2f"|format(item.similarity_score * 100) }}%</p>
+                        <p class="description">{{ item.program_description[:200] }}...</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

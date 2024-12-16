@@ -1,0 +1,6 @@
+flask==2.3.3
+chromadb==0.4.6
+sentence-transformers==2.2.2
+pymongo==4.5.0
+python-dotenv==1.0.0
+bson==0.5.10
